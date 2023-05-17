@@ -14,6 +14,8 @@ import { HomeService } from './home.service';
 import { CreateHomeDto, HomeResponseDto, UpdateHomeDto } from './dtos/home.dto';
 import { PropertyType } from '@prisma/client';
 import { User, UserTokenType } from 'src/user/decorators/user.decorator';
+import { Roles } from 'src/decorators/roles.decorator';
+import { UserType } from '@prisma/client';
 
 @Controller('home')
 export class HomeController {
@@ -48,11 +50,15 @@ export class HomeController {
     return this.homeService.getHomeById(id);
   }
 
+  @Roles(UserType.REALTOR)
   @Post()
   createHome(@Body() body: CreateHomeDto, @User() user: UserTokenType) {
-    return this.homeService.createHome(body, user.id);
+    //return this.homeService.createHome(body, user.id);
+
+    return 'Created';
   }
 
+  @Roles(UserType.REALTOR)
   @Put(':id')
   async updateHome(
     @Param('id', ParseIntPipe) id: number,
@@ -67,6 +73,7 @@ export class HomeController {
     return this.homeService.updateHomeById(id, body);
   }
 
+  @Roles(UserType.REALTOR)
   @Delete(':id')
   async deleteHome(
     @Param('id', ParseIntPipe) id: number,
