@@ -53,9 +53,7 @@ export class HomeController {
   @Roles(UserType.REALTOR)
   @Post()
   createHome(@Body() body: CreateHomeDto, @User() user: UserTokenType) {
-    //return this.homeService.createHome(body, user.id);
-
-    return 'Created';
+    return this.homeService.createHome(body, user.id);
   }
 
   @Roles(UserType.REALTOR)
