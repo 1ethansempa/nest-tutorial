@@ -37,6 +37,7 @@ interface UpdateHomeParams {
 @Injectable()
 export class HomeService {
   constructor(private readonly prismaService: PrismaService) {}
+
   async getHomes(filters: GetHomesParams): Promise<HomeResponseDto[]> {
     const homes = await this.prismaService.home.findMany({
       select: {
